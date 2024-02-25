@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    id("com.diffplug.spotless") version "6.25.0"
 }
 
 android {
@@ -67,4 +68,12 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+}
+spotless {
+  kotlin {
+    target("**/*.kt", "**/*.kts")
+    targetExclude("$buildDir/**/*.kt", "bin/**/*.kt", "buildSrc/**/*.kt")
+    // version, editorConfigPath, editorConfigOverride and customRuleSets are all optional
+    ktlint().setEditorConfigPath("$rootDir/.editorconfig")  // sample unusual placement
+  }
 }
