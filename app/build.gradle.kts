@@ -3,6 +3,8 @@ plugins {
   alias(libs.plugins.androidApplication)
   alias(libs.plugins.kotlinAndroid)
   id("com.diffplug.spotless") version "6.25.0"
+  kotlin("kapt")
+  alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -20,6 +22,10 @@ android {
     vectorDrawables {
       useSupportLibrary = true
     }
+  }
+  // Allow references to generated code
+  kapt {
+    correctErrorTypes = true
   }
 
   buildTypes {
@@ -63,6 +69,11 @@ dependencies {
   implementation(libs.ui.graphics)
   implementation(libs.ui.tooling.preview)
   implementation(libs.material3)
+
+  implementation(libs.hilt.android)
+  kapt(libs.dagger.hilt.android.compiler)
+  implementation(libs.androidx.hilt.navigation.compose)
+
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.test.ext.junit)
   androidTestImplementation(libs.espresso.core)

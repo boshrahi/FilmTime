@@ -11,12 +11,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import io.boshra.filmtime.feature.movie.detail.MovieDetailViewModel
 import io.boshra.filmtime.feature.movie.detail.MovieDetailsScreen
 import io.boshra.filmtime.ui.theme.FilmTimeTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-  val viewModel by viewModels<MovieDetailViewModel>()
+  private val viewModel by viewModels<MovieDetailViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -26,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MovieDetailsScreen(viewModel = viewModel)
+                    MovieDetailsScreen(viewModel = hiltViewModel())
                 }
             }
         }

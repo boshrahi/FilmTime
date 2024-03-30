@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface TmdbMoviesService {
 
-  @GET("/movie/{movie_id}")
+  @GET("/3/movie/{movie_id}")
   suspend fun getMovieDetails(
     @Path("movie_id") movieId: Int,
     @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
