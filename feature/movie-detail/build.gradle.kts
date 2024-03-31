@@ -57,6 +57,7 @@ dependencies {
   implementation(libs.ui.tooling.preview)
   implementation(libs.material3)
   implementation(libs.lifecycle.viewmodel.compose)
+  implementation (libs.androidx.lifecycle.viewmodel.savedstate)
   implementation(libs.lifecycle.runtime.compose)
   implementation(libs.hilt.android)
   implementation(libs.coil.compose)

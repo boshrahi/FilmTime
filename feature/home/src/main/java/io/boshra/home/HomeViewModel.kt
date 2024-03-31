@@ -28,7 +28,9 @@ class HomeViewModel @Inject constructor(
         .onStart { _state.update { state -> state.copy(isLoading = true) } }
         .onCompletion { _state.update { state -> state.copy(isLoading = false) } }
         .onEach {
-          _state.update { state -> state.copy(items = it) }
+          _state.update { state ->
+            state.copy(videoSections = state.videoSections +
+              listOf(VideoSections(title = "Trending Movies", it))) }
         }
         .collect()
     }
