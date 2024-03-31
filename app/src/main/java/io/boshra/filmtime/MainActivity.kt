@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.boshra.filmtime.feature.movie.detail.MovieDetailViewModel
 import io.boshra.filmtime.feature.movie.detail.MovieDetailsScreen
 import io.boshra.filmtime.ui.theme.FilmTimeTheme
+import io.boshra.home.HomeScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MovieDetailsScreen(viewModel = hiltViewModel())
+                    HomeScreen(viewModel = hiltViewModel())
                 }
             }
         }

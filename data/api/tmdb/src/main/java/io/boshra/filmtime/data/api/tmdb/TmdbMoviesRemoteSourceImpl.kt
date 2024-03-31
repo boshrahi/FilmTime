@@ -1,6 +1,7 @@
 package io.boshra.filmtime.data.api.tmdb
 
 import io.boshra.filmtime.data.model.VideoDetail
+import io.boshra.filmtime.data.model.VideoThumbnail
 import io.boshra.filmtime.data.network.TmdbMoviesService
 import javax.inject.Inject
 
@@ -9,4 +10,10 @@ internal class TmdbMoviesRemoteSourceImpl @Inject constructor(
 ) : TmdbMoviesRemoteSource {
   override suspend fun getMovieDetails(movieId: Int): VideoDetail =
     tmdbMoviesService.getMovieDetails(movieId).toVideoDetail()
+
+  override suspend fun getTrendingMovies(): List<VideoThumbnail> =
+    tmdbMoviesService.getTrendingMovies()
+      .results?.map {
+        it.toVideoThumbnail()
+      }.orEmpty()
 }

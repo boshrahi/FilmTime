@@ -11,4 +11,9 @@ interface TmdbMoviesService {
     @Path("movie_id") movieId: Int,
     @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
   ): TmdbMovieDetailsResponse
+
+  @GET("/3/trending/movie/day")
+  suspend fun getTrendingMovies(
+    @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+  ): TmdbVideoListResponse
 }

@@ -6,4 +6,5 @@ import io.boshra.filmtime.data.model.VideoThumbnail
 interface TmdbMovieRepository {
 
   suspend fun getMovieDetails(movieId: Int): VideoDetail
+  suspend fun getTrendingMovies(): List<VideoThumbnail>
 }
