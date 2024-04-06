@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-  namespace = "io.boshra.filmtime.feature.movie.detail"
+  namespace = "io.boshra.filmtime.domain.stream"
   compileSdk = 34
 
   defaultConfig {
@@ -18,13 +18,6 @@ android {
   }
 
   buildTypes {
-    buildFeatures {
-      compose = true
-    }
-
-    composeOptions {
-      kotlinCompilerExtensionVersion = "1.5.1"
-    }
     release {
       isMinifyEnabled = false
       proguardFiles(
@@ -44,25 +37,12 @@ android {
 
 dependencies {
 
-  implementation(project(":domain:tmdb-movie"))
-  implementation(project(":domain:stream"))
   implementation(project(":data:model"))
 
   implementation(libs.core.ktx)
   implementation(libs.appcompat)
   implementation(libs.material)
-
-  implementation(platform(libs.compose.bom))
-  implementation(libs.ui)
-  implementation(libs.ui.graphics)
-  implementation(libs.ui.tooling.preview)
-  implementation(libs.material3)
-  implementation(libs.lifecycle.viewmodel.compose)
-  implementation (libs.androidx.lifecycle.viewmodel.savedstate)
-  implementation(libs.lifecycle.runtime.compose)
   implementation(libs.hilt.android)
-  implementation(libs.coil.compose)
-
   kapt(libs.dagger.hilt.android.compiler)
 
   testImplementation(libs.junit)
