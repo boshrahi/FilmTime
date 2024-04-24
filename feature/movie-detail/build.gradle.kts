@@ -62,6 +62,7 @@ dependencies {
   implementation(libs.lifecycle.runtime.compose)
   implementation(libs.hilt.android)
   implementation(libs.coil.compose)
+  implementation(libs.lottie.compose)
 
   kapt(libs.dagger.hilt.android.compiler)
 
