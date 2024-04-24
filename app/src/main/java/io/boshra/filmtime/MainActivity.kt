@@ -1,5 +1,6 @@
 package io.boshra.filmtime
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,6 +23,7 @@ import io.boshra.filmtime.feature.movie.detail.MovieDetailViewModel
 import io.boshra.filmtime.feature.movie.detail.MovieDetailsScreen
 import io.boshra.filmtime.ui.theme.FilmTimeTheme
 import io.boshra.home.HomeScreen
+import io.boshra.player.VideoPlayer
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -56,7 +58,21 @@ class MainActivity : ComponentActivity() {
                 },
               ),
             ) {
-              MovieDetailsScreen(viewModel = hiltViewModel())
+              MovieDetailsScreen(viewModel = hiltViewModel()) { streamUrl->
+                val encode = Uri.encode(streamUrl)
+                navController.navigate("player/$encode")
+              }
+            }
+            composable(
+              "player/{stream_url}",
+              arguments = listOf(
+                navArgument("stream_url") {
+                  type = NavType.StringType
+                },
+              ),
+            ) { backStackEntry ->
+              val streamUrl = backStackEntry.arguments?.getString("stream_url")
+              VideoPlayer(uri = Uri.parse(Uri.decode(streamUrl)))
             }
           }
         }

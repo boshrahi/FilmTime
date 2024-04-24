@@ -14,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,11 +24,18 @@ import coil.compose.AsyncImage
 
 @Composable
 fun MovieDetailsScreen(
-  viewModel: MovieDetailViewModel
+  viewModel: MovieDetailViewModel,
+  onStreamReady: (String) -> Unit
 ) {
   val state by viewModel.state.collectAsStateWithLifecycle()
   val videoDetail = state.videoDetail
+  val navigateToPlayer by viewModel.navigateToPlayer.collectAsStateWithLifecycle(initialValue = null)
 
+  LaunchedEffect(key1 = navigateToPlayer) {
+    navigateToPlayer?.let {streamUrl ->
+      onStreamReady(streamUrl)
+    }
+  }
   if (state.isLoading){
     CircularProgressIndicator()
   }else if(videoDetail != null) {

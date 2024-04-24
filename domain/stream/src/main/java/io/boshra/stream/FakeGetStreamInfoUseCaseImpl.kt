@@ -9,7 +9,7 @@ import javax.inject.Inject
 class FakeGetStreamInfoUseCaseImpl @Inject constructor(): GetStreamInfoUseCase {
   override suspend fun invoke(): Flow<StreamInfo> = flow {
     delay(1000L)
-    emit(StreamInfo(url = "https://music.youtube.com/watch?v=mrONr6j3WMw"))
+    emit(StreamInfo(url = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"))
   }
 
 }

@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.boshra.filmtime.domain.tmdb.movie.GetMovieDetailsUseCase
 import io.boshra.stream.FakeGetStreamInfoUseCaseImpl
 import io.boshra.stream.GetStreamInfoUseCase
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
@@ -25,6 +26,7 @@ class MovieDetailViewModel @Inject constructor(
   private val videoId: Int = savedStateHandle["movie_id"] ?: throw IllegalStateException("movie_id is required")
   private val _state: MutableStateFlow<MovieDetailState> = MutableStateFlow(MovieDetailState())
   val state = _state.asStateFlow()
+  val navigateToPlayer = MutableSharedFlow<String?>()
 
   init {
     load(videoId)
@@ -42,6 +44,7 @@ class MovieDetailViewModel @Inject constructor(
     getStreamInfoUseCase()
       .onEach { streamInfo ->
         _state.value = _state.value.copy(streamInfo = streamInfo, isStreamLoading = false)
+        navigateToPlayer.emit(streamInfo.url)
       }
       .collect()
   }
