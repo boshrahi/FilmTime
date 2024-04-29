@@ -59,6 +59,8 @@ dependencies {
   implementation(libs.lifecycle.runtime.compose)
   implementation(libs.hilt.android)
   implementation(libs.coil.compose)
+  implementation(libs.androidx.hilt.navigation.compose)
+  implementation(libs.androidx.navigation.compose)
 
   kapt(libs.dagger.hilt.android.compiler)
 

@@ -12,18 +12,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import io.boshra.filmtime.feature.movie.detail.MovieDetailViewModel
-import io.boshra.filmtime.feature.movie.detail.MovieDetailsScreen
+import io.boshra.filmtime.feature.movie.detail.movieDetailScreen
+import io.boshra.filmtime.feature.movie.detail.navigateToMovieDetail
 import io.boshra.filmtime.ui.theme.FilmTimeTheme
-import io.boshra.home.HomeScreen
-import io.boshra.player.VideoPlayer
+import io.boshra.home.homeScreen
+import io.boshra.player.navigateToPlayer
+import io.boshra.player.playerScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -42,38 +40,13 @@ class MainActivity : ComponentActivity() {
             navController = navController,
             startDestination = "home",
           ) {
-            composable("home") {
-              HomeScreen(
-                viewModel = hiltViewModel(),
-                onVideoThumbnailClick = { movieId ->
-                  navController.navigate("detail/$movieId")
-                },
-              )
+            homeScreen { movieId ->
+              navController.navigateToMovieDetail(movieId)
             }
-            composable(
-              "detail/{movie_id}",
-              arguments = listOf(
-                navArgument("movie_id") {
-                  type = NavType.IntType
-                },
-              ),
-            ) {
-              MovieDetailsScreen(viewModel = hiltViewModel()) { streamUrl->
-                val encode = Uri.encode(streamUrl)
-                navController.navigate("player/$encode")
-              }
+            movieDetailScreen { streamUrl ->
+              navController.navigateToPlayer(streamUrl)
             }
-            composable(
-              "player/{stream_url}",
-              arguments = listOf(
-                navArgument("stream_url") {
-                  type = NavType.StringType
-                },
-              ),
-            ) { backStackEntry ->
-              val streamUrl = backStackEntry.arguments?.getString("stream_url")
-              VideoPlayer(uri = Uri.parse(Uri.decode(streamUrl)))
-            }
+            playerScreen()
           }
         }
       }
