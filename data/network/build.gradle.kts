@@ -14,7 +14,7 @@ android {
   defaultConfig {
     minSdk = 27
 
-    buildConfigField("String", "TMDB_API_KEY", "\"8b2336b0ff12ba7087cbeb8ce7eb4586\"")
+    buildConfigField("String", "TMDB_API_KEY", "\"${System.getenv("FILM_TIME_TMDB_API_KEY")}\"")
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles("consumer-rules.pro")
