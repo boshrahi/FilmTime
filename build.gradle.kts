@@ -7,5 +7,14 @@ plugins {
   alias(libs.plugins.androidLibrary) apply false
   alias(libs.plugins.kotlinx.serialization) apply false
   alias(libs.plugins.hilt.android) apply false
+  alias(libs.plugins.spotless)
+}
+spotless {
+  kotlin {
+    target("**/*.kt", "**/*.kts")
+    targetExclude("$buildDir/**/*.kt", "bin/**/*.kt", "buildSrc/**/*.kt")
+    // version, editorConfigPath, editorConfigOverride and customRuleSets are all optional
+    ktlint().setEditorConfigPath("$rootDir/.editorconfig")  // sample unusual placement
+  }
 }
 true // Needed to make the Suppress annotation work for the plugins block
