@@ -10,9 +10,6 @@ android {
 dependencies {
 
   implementation(project(":domain:tmdb-movie"))
-
-//  implementation(libs.core.ktx)
-//  implementation(libs.appcompat)
-//  implementation(libs.material)
+  implementation(project(":domain:tmdb-shows"))
 
 }

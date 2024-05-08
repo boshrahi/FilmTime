@@ -1,4 +1,4 @@
-package io.boshra.filmtime.data.network
+package io.boshra.filmtime.data.network.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

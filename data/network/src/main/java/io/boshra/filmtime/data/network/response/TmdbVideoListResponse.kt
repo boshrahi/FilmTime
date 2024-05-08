@@ -3,7 +3,7 @@
 // val json              = Json { allowStructuredMapKeys = true }
 // val videoListResponse = json.parse(VideoListResponse.serializer(), jsonString)
 
-package io.boshra.filmtime.data.network
+package io.boshra.filmtime.data.network.response
 
 import kotlinx.serialization.*
 
@@ -41,7 +41,7 @@ data class TmdbVideoResultResponse (
   val posterPath: String? = null,
 
   @SerialName("media_type")
-  val mediaType: MediaType? = null,
+  val mediaType: String? = null,
 
   @SerialName("genre_ids")
   val genreIDS: List<Long>? = null,
@@ -59,8 +59,3 @@ data class TmdbVideoResultResponse (
   @SerialName("vote_count")
   val voteCount: Long? = null
 )
-
-@Serializable
-enum class MediaType(val value: String) {
-  @SerialName("movie") Movie("movie");
-}

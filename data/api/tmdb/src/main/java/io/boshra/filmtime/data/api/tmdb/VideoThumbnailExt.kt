@@ -3,10 +3,11 @@ package io.boshra.filmtime.data.api.tmdb
 import io.boshra.filmtime.data.model.VideoDetail
 import io.boshra.filmtime.data.model.VideoId
 import io.boshra.filmtime.data.model.VideoThumbnail
-import io.boshra.filmtime.data.network.TmdbMovieDetailsResponse
-import io.boshra.filmtime.data.network.TmdbVideoResultResponse
+import io.boshra.filmtime.data.network.response.TmdbMovieDetailsResponse
+import io.boshra.filmtime.data.network.response.TmdbShowResultResponse
+import io.boshra.filmtime.data.network.response.TmdbVideoResultResponse
 
-private val TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/"
+private const val TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/"
 fun TmdbMovieDetailsResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
   ids = VideoId(
     traktId = null,
@@ -39,5 +40,12 @@ fun TmdbVideoResultResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
   title = this.title ?: "",
   posterUrl = if (!posterPath.isNullOrBlank()) TMDB_BASE_IMAGE_URL.plus(posterPath) else "",
   year = releaseDate?.take(4)?.toInt() ?: 0,
+)
+
+fun TmdbShowResultResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
+  ids = VideoId(traktId = null, tmdbId = this.id),
+  title = this.name ?: "",
+  posterUrl = if (!posterPath.isNullOrBlank()) TMDB_BASE_IMAGE_URL.plus(posterPath) else "",
+  year = firstAirDate?.take(4)?.toInt() ?: 0,
 )
 
