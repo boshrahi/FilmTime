@@ -36,14 +36,17 @@ class HomeViewModel @Inject constructor(
         .onStart { _state.update { state -> state.copy(isLoading = true) } }
         .onCompletion { _state.update { state -> state.copy(isLoading = false) } }
         .onEach { result ->
-          when(result){
+          when (result) {
             is Result.Success -> {
               _state.update { state ->
-                state.copy(videoSections = state.videoSections +
-                  listOf(VideoSections(title = "Trending Shows", result.data))) }
+                state.copy(
+                  videoSections = state.videoSections +
+                    listOf(VideoSections(title = "Trending Shows", result.data)),
+                )
+              }
             }
             is Result.Failure -> {
-              //TODO handling
+              // TODO handling
             }
           }
         }
@@ -57,14 +60,17 @@ class HomeViewModel @Inject constructor(
         .onStart { _state.update { state -> state.copy(isLoading = true) } }
         .onCompletion { _state.update { state -> state.copy(isLoading = false) } }
         .onEach { result ->
-          when(result){
+          when (result) {
             is Result.Success -> {
               _state.update { state ->
-                state.copy(videoSections = state.videoSections +
-                  listOf(VideoSections(title = "Trending Movies", result.data))) }
+                state.copy(
+                  videoSections = state.videoSections +
+                    listOf(VideoSections(title = "Trending Movies", result.data)),
+                )
+              }
             }
             is Result.Failure -> {
-              //TODO handling
+              // TODO handling
             }
           }
         }

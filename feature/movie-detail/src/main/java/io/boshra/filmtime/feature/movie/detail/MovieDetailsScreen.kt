@@ -37,22 +37,22 @@ import io.boshra.filmtime.data.model.GeneralError
 @Composable
 fun MovieDetailsScreen(
   viewModel: MovieDetailViewModel,
-  onStreamReady: (String) -> Unit
+  onStreamReady: (String) -> Unit,
 ) {
   val state by viewModel.state.collectAsStateWithLifecycle()
   val videoDetail = state.videoDetail
   val navigateToPlayer by viewModel.navigateToPlayer.collectAsStateWithLifecycle(initialValue = null)
 
   LaunchedEffect(key1 = navigateToPlayer) {
-    navigateToPlayer?.let {streamUrl ->
+    navigateToPlayer?.let { streamUrl ->
       onStreamReady(streamUrl)
     }
   }
-  if (state.isLoading){
+  if (state.isLoading) {
     CircularProgressIndicator()
   } else if (state.error != null) {
     ShowError(error = state.error!!, message = state.message!!, onRefresh = viewModel::load)
-  } else if(videoDetail != null) {
+  } else if (videoDetail != null) {
     Column(
       modifier = Modifier
         .padding(16.dp)
@@ -80,11 +80,11 @@ fun MovieDetailsScreen(
       Button(onClick = {
         viewModel.loadStreamInfo()
       }) {
-        if (state.isStreamLoading){
+        if (state.isStreamLoading) {
           CircularProgressIndicator(
             modifier = Modifier.size(16.dp),
             color = Color.White,
-            strokeWidth = 2.dp
+            strokeWidth = 2.dp,
           )
         } else {
           Text(text = "Play")
@@ -92,8 +92,8 @@ fun MovieDetailsScreen(
       }
 
       Row(
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-      ){
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+      ) {
         Text(text = "Year: ${videoDetail.year}")
         Text(text = "Original language: ${videoDetail.originalLanguage}")
         Text(text = videoDetail.spokenLanguage.joinToString(", "))
@@ -102,7 +102,6 @@ fun MovieDetailsScreen(
       Text(text = videoDetail.genres.joinToString(", "))
     }
   }
-
 }
 
 @Composable
@@ -123,7 +122,7 @@ fun ShowError(error: GeneralError, message: String, onRefresh: () -> Unit) {
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally,
 
-    ) {
+  ) {
     LottieAnimation(
       modifier = Modifier.scale(0.8f),
       composition = composition,

@@ -8,8 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
 fun NavGraphBuilder.movieDetailScreen(
-  onStreamReady: (streamUrl:String) -> Unit
-){
+  onStreamReady: (streamUrl: String) -> Unit,
+) {
   composable(
     "detail/{movie_id}",
     arguments = listOf(
@@ -18,7 +18,7 @@ fun NavGraphBuilder.movieDetailScreen(
       },
     ),
   ) {
-    MovieDetailsScreen(viewModel = hiltViewModel()) { streamUrl->
+    MovieDetailsScreen(viewModel = hiltViewModel()) { streamUrl ->
       onStreamReady(streamUrl)
     }
   }

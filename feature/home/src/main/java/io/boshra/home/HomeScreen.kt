@@ -51,7 +51,7 @@ fun HomeScreen(
           items = videoSection.items,
           onVideoThumbnailClick = {
             onVideoThumbnailClick(it)
-          }
+          },
         )
       }
     }
@@ -66,10 +66,11 @@ fun VideoSectionRow(
   onVideoThumbnailClick: (tmdbMovieId: Int) -> Unit,
 ) {
   Column {
-
-    Row(modifier = Modifier
-      .clickable {  }
-      .padding(16.dp)) {
+    Row(
+      modifier = Modifier
+        .clickable { }
+        .padding(16.dp),
+    ) {
       Text(
         modifier = Modifier.weight(1f),
         text = title,

@@ -48,4 +48,3 @@ fun TmdbShowResultResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
   posterUrl = if (!posterPath.isNullOrBlank()) TMDB_BASE_IMAGE_URL.plus(posterPath) else "",
   year = firstAirDate?.take(4)?.toInt() ?: 0,
 )
-

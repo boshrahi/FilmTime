@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
 fun NavGraphBuilder.homeScreen(
-  onVideoThumbnailClicked: (movieId: Int) -> Unit
-){
+  onVideoThumbnailClicked: (movieId: Int) -> Unit,
+) {
   composable("home") {
     HomeScreen(
       viewModel = hiltViewModel(),

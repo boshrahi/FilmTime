@@ -12,11 +12,11 @@ import io.boshra.filmtime.data.model.VideoThumbnail
 fun VideoThumbnailCard(
   modifier: Modifier,
   videoThumbnail: VideoThumbnail,
-  onClick: () -> Unit
+  onClick: () -> Unit,
 ) {
   Card(
     onClick = onClick,
-    modifier = modifier
+    modifier = modifier,
   ) {
     VideoThumbnailCardContent(videoThumbnail = videoThumbnail)
   }

@@ -1,5 +1,6 @@
 package io.boshra.filmtime.gradle.plugins
 
+import io.boshra.filmtime.gradle.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -15,6 +16,8 @@ class DomainPlugin : Plugin<Project> {
 
       dependencies {
         add("implementation", project(":data:model"))
+        add("testImplementation", libs.findLibrary("junit").get())
+        add("androidTestImplementation", libs.findLibrary("androidx-test-ext-junit").get())
       }
     }
   }

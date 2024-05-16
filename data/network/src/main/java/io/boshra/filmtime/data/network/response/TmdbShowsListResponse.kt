@@ -1,9 +1,10 @@
 package io.boshra.filmtime.data.network.response
 
-import kotlinx.serialization.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
-data class TmdbShowsListResponse (
+data class TmdbShowsListResponse(
   val page: Long? = null,
   val results: List<TmdbShowResultResponse>? = null,
 
@@ -11,11 +12,11 @@ data class TmdbShowsListResponse (
   val totalPages: Long? = null,
 
   @SerialName("total_results")
-  val totalResults: Long? = null
+  val totalResults: Long? = null,
 )
 
 @Serializable
-data class TmdbShowResultResponse (
+data class TmdbShowResultResponse(
   @SerialName("backdrop_path")
   val backdropPath: String? = null,
 
@@ -53,7 +54,5 @@ data class TmdbShowResultResponse (
   val voteCount: Long? = null,
 
   @SerialName("origin_country")
-  val originCountry: List<String>? = null
+  val originCountry: List<String>? = null,
 )
-
-

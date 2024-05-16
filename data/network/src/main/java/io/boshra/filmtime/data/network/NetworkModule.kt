@@ -26,7 +26,7 @@ object NetworkModule {
   @Singleton
   fun providesRetrofit(
     json: Json,
-    networkCallAdapterFactory: CallAdapter.Factory
+    networkCallAdapterFactory: CallAdapter.Factory,
   ): Retrofit {
     return Retrofit.Builder()
       .baseUrl("https://api.themoviedb.org/3/")
@@ -41,10 +41,10 @@ object NetworkModule {
     return retrofit.create(TmdbMoviesService::class.java)
   }
 
-    @Provides
-    @Singleton
-    fun providesTmdbShowsService(retrofit: Retrofit): TmdbShowsService {
-      return retrofit.create(TmdbShowsService::class.java)
+  @Provides
+  @Singleton
+  fun providesTmdbShowsService(retrofit: Retrofit): TmdbShowsService {
+    return retrofit.create(TmdbShowsService::class.java)
   }
 
   @Provides

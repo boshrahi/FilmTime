@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetTrendingMovieUseCaseImpl @Inject constructor(
-  private val tmdbMovieRepository: TmdbMovieRepository
-): GetTrendingMoviesUseCase {
+  private val tmdbMovieRepository: TmdbMovieRepository,
+) : GetTrendingMoviesUseCase {
   override fun invoke(): Flow<Result<List<VideoThumbnail>, GeneralError>> =
     flow {
       emit(tmdbMovieRepository.getTrendingMovies())

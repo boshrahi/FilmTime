@@ -14,7 +14,7 @@ spotless {
     target("**/*.kt", "**/*.kts")
     targetExclude("$buildDir/**/*.kt", "bin/**/*.kt", "buildSrc/**/*.kt")
     // version, editorConfigPath, editorConfigOverride and customRuleSets are all optional
-    ktlint().setEditorConfigPath("$rootDir/.editorconfig")  // sample unusual placement
+    ktlint().setEditorConfigPath("$rootDir/.editorconfig") // sample unusual placement
   }
 }
 true // Needed to make the Suppress annotation work for the plugins block

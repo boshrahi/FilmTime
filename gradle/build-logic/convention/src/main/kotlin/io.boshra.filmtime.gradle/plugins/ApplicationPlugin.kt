@@ -3,6 +3,7 @@ package io.boshra.filmtime.gradle.plugins
 import com.android.build.api.dsl.ApplicationExtension
 import io.boshra.filmtime.gradle.Versions
 import io.boshra.filmtime.gradle.configureKotlinAndroid
+import io.boshra.filmtime.gradle.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -25,6 +26,11 @@ class ApplicationPlugin : Plugin<Project> {
         defaultConfig {
           targetSdk = Versions.TARGET_SDK
         }
+      }
+
+      dependencies {
+        add("testImplementation", libs.findLibrary("junit").get())
+        add("androidTestImplementation", libs.findLibrary("androidx-test-ext-junit").get())
       }
     }
   }

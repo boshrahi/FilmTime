@@ -11,6 +11,6 @@ internal abstract class TmdbShowsUseCaseModule {
 
   @Binds
   abstract fun bindGetTrendingShowsUseCase(
-    impl: GetTrendingShowsUseCaseImpl
+    impl: GetTrendingShowsUseCaseImpl,
   ): GetTrendingShowsUseCase
 }
