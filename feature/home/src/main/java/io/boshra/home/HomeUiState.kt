@@ -4,7 +4,7 @@ import io.boshra.filmtime.data.model.VideoThumbnail
 
 data class HomeUiState(
   val isLoading: Boolean,
-  val videoSections: List<VideoSections> = emptyList()
+  val videoSections: List<VideoSections> = emptyList(),
 )
 data class VideoSections(
   val title: String,

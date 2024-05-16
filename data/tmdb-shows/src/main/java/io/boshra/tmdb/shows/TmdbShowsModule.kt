@@ -11,5 +11,4 @@ internal abstract class TmdbShowsModule {
 
   @Binds
   abstract fun providesTmdbShowsRemoteSource(impl: TmdbShowsRepositoryImpl): TmdbShowsRepository
-
 }

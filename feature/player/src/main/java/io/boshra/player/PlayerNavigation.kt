@@ -21,7 +21,7 @@ fun NavGraphBuilder.playerScreen() {
   }
 }
 
-fun NavController.navigateToPlayer(streamUrl: String){
+fun NavController.navigateToPlayer(streamUrl: String) {
   val encode = Uri.encode(streamUrl)
   navigate("player/$encode")
 }

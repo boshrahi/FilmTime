@@ -28,7 +28,7 @@ class ApplicationPlugin : Plugin<Project> {
         }
       }
 
-      dependencies{
+      dependencies {
         add("testImplementation", libs.findLibrary("junit").get())
         add("androidTestImplementation", libs.findLibrary("androidx-test-ext-junit").get())
       }

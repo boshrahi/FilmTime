@@ -7,8 +7,8 @@ import io.boshra.filmtime.data.model.VideoThumbnail
 import javax.inject.Inject
 
 class TmdbShowsRepositoryImpl @Inject constructor(
-  private val remoteSourceTmdbShows: TmdbShowsRemoteSource
-): TmdbShowsRepository {
+  private val remoteSourceTmdbShows: TmdbShowsRemoteSource,
+) : TmdbShowsRepository {
 
   override suspend fun getTrendingMovies(): Result<List<VideoThumbnail>, GeneralError> {
     return remoteSourceTmdbShows.getTrendingShows()

@@ -8,17 +8,16 @@ import java.lang.reflect.Type
 
 class NetworkCallAdapterFactory : CallAdapter.Factory() {
 
-
   override fun get(
     returnType: Type,
     annotations: Array<out Annotation>,
     retrofit: Retrofit,
   ): CallAdapter<*, *>? {
-
-    if (getRawType(returnType) != Call::class.java)
+    if (getRawType(returnType) != Call::class.java) {
       return null
+    }
 
-    check(returnType is ParameterizedType){
+    check(returnType is ParameterizedType) {
       "return type must be parameterized as Call<NetworkResponse<T>> or Call<NetworkResponse<out T>>"
     }
 
@@ -27,7 +26,7 @@ class NetworkCallAdapterFactory : CallAdapter.Factory() {
       return null
     }
 
-    check(responseType is ParameterizedType){
+    check(responseType is ParameterizedType) {
       "response must be parameterized as NetworkResponse<T> or NetworkResponse<out T>"
     }
 
@@ -42,5 +41,4 @@ class NetworkCallAdapterFactory : CallAdapter.Factory() {
 
     return NetworkResponseAdapter<Any, Any>(successBodyType, errorBodyConverter)
   }
-
 }

@@ -5,7 +5,6 @@ import io.boshra.filmtime.data.model.Result
 import io.boshra.filmtime.data.model.VideoDetail
 import io.boshra.filmtime.data.model.VideoThumbnail
 
-
 interface TmdbMoviesRemoteSource {
 
   suspend fun getMovieDetails(movieId: Int): Result<VideoDetail, GeneralError>

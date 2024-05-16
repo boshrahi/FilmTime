@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class TmdbShowsRemoteSourceImpl @Inject constructor(
   private val tmdbShowsService: TmdbShowsService,
-): TmdbShowsRemoteSource {
+) : TmdbShowsRemoteSource {
 
   override suspend fun getTrendingShows(): Result<List<VideoThumbnail>, GeneralError> =
     when (val result = tmdbShowsService.getTrendingShows()) {

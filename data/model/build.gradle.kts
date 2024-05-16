@@ -1,3 +1,3 @@
 plugins {
-    id("io.boshra.filmtime.gradle.jvm.library")
+  id("io.boshra.filmtime.gradle.jvm.library")
 }

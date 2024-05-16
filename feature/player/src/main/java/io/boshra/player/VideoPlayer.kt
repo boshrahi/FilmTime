@@ -30,9 +30,8 @@ fun VideoPlayer(uri: Uri) {
 
   val lifecycleOwner = rememberUpdatedState(newValue = LocalLifecycleOwner.current)
   DisposableEffect(key1 = lifecycleOwner) {
-
     val observer = LifecycleEventObserver { owner: LifecycleOwner, event: Lifecycle.Event ->
-      when(event) {
+      when (event) {
         Lifecycle.Event.ON_RESUME -> {
           exoPlayer.play()
         }
@@ -57,5 +56,4 @@ fun VideoPlayer(uri: Uri) {
       player = exoPlayer
     }
   })
-
 }

@@ -8,4 +8,3 @@ interface TmdbShowsRepository {
 
   suspend fun getTrendingMovies(): Result<List<VideoThumbnail>, GeneralError>
 }
-

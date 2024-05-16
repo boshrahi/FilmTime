@@ -11,6 +11,6 @@ abstract class StreamModule {
 
   @Binds
   abstract fun bindGetStreamInfoUseCase(
-    getStreamInfoUseCaseImpl: FakeGetStreamInfoUseCaseImpl
+    getStreamInfoUseCaseImpl: FakeGetStreamInfoUseCaseImpl,
   ): GetStreamInfoUseCase
 }

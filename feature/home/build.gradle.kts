@@ -11,5 +11,4 @@ dependencies {
 
   implementation(project(":domain:tmdb-movie"))
   implementation(project(":domain:tmdb-shows"))
-
 }
