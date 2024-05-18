@@ -20,6 +20,16 @@ class LibraryPlugin : Plugin<Project> {
       extensions.configure<LibraryExtension> {
         configureKotlinAndroid()
         defaultConfig.targetSdk = Versions.TARGET_SDK
+
+        buildTypes {
+          getByName("release") {
+            isMinifyEnabled = true
+            proguardFiles(
+              getDefaultProguardFile("proguard-android-optimize.txt"),
+              "proguard-rules.pro",
+            )
+          }
+        }
       }
 
       dependencies {
