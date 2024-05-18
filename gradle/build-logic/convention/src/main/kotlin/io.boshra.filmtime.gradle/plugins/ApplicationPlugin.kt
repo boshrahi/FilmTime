@@ -30,7 +30,7 @@ class ApplicationPlugin : Plugin<Project> {
             create("release") {
               keyAlias = System.getenv("KEY_ALIAS")
               keyPassword = System.getenv("KEY_PASSWORD")
-              storeFile = file("\"${System.getenv("KEY_STORE_FILE_PATH")}\"")
+              storeFile = file("${System.getenv("KEY_STORE_FILE_PATH")}")
               storePassword = System.getenv("KEY_STORE_PASSWORD")
             }
           }
