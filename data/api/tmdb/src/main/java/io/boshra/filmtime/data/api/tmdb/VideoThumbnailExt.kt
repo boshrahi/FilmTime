@@ -39,16 +39,20 @@ fun TmdbVideoResultResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
   ids = VideoId(traktId = null, tmdbId = this.id),
   title = this.title ?: "",
   posterUrl = if (!posterPath.isNullOrBlank()) TMDB_BASE_IMAGE_URL.plus(posterPath) else "",
-  year = if (!releaseDate.isNullOrEmpty())
+  year = if (!releaseDate.isNullOrEmpty()) {
     releaseDate?.take(4)?.toInt() ?: 0
-  else 0,
+  } else {
+    0
+  },
 )
 
 fun TmdbShowResultResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
   ids = VideoId(traktId = null, tmdbId = this.id),
   title = this.name ?: "",
   posterUrl = if (!posterPath.isNullOrBlank()) TMDB_BASE_IMAGE_URL.plus(posterPath) else "",
-  year = if (!firstAirDate.isNullOrEmpty())
+  year = if (!firstAirDate.isNullOrEmpty()) {
     firstAirDate?.take(4)?.toInt() ?: 0
-  else 0,
+  } else {
+    0
+  },
 )
