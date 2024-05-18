@@ -25,6 +25,16 @@ class ApplicationPlugin : Plugin<Project> {
 
         defaultConfig {
           targetSdk = Versions.TARGET_SDK
+
+          buildTypes {
+            release {
+              isMinifyEnabled = true
+              proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+              )
+            }
+          }
         }
       }
 
