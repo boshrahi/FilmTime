@@ -35,7 +35,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Decrypt keystore
-        run: openssl aes-256-cbc -d -in keystore.enc -out keystore -k ${{ secrets.ENCRYPTION_SECRET_KEY }}
+        run: openssl aes-256-cbc -d -in ${{ github.workspace }}/keystore.enc -out ${{ github.workspace }}/keystore.jks -k ${{ secrets.ENCRYPTION_SECRET_KEY }}
 
       - name: Build with Gradle
         run: ./gradlew build
@@ -43,7 +43,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-          KEYSTORE_FILE: ${{ github.workspace }}/keystore
+          KEYSTORE_FILE: ${{ github.workspace }}/keystore.jks
 
       - name: Run unit tests
         run: ./gradlew test
@@ -54,7 +54,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-          KEYSTORE_FILE: ${{ github.workspace }}/keystore
+          KEYSTORE_FILE: ${{ github.workspace }}/keystore.jks
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
