@@ -414,3 +414,9 @@ obj/
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,git,android,androidstudio,gradle,kotlin,java,intellij
+
+# Ignore all .dm files
+*.dm
+
+# Ignore output-metadata.json file
+output-metadata.json
