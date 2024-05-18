@@ -43,7 +43,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-          KEYSTORE_FILE: keystore.jks
+          KEYSTORE_FILE: ${{ github.workspace }}/keystore
 
       - name: Run unit tests
         run: ./gradlew test
@@ -54,7 +54,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
-          KEYSTORE_FILE: keystore
+          KEYSTORE_FILE: ${{ github.workspace }}/keystore
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
