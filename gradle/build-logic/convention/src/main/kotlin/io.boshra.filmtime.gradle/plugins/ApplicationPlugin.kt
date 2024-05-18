@@ -26,13 +26,23 @@ class ApplicationPlugin : Plugin<Project> {
         defaultConfig {
           targetSdk = Versions.TARGET_SDK
 
+          signingConfigs {
+            create("release") {
+              keyAlias = System.getenv("KEY_ALIAS")
+              keyPassword = System.getenv("KEY_PASSWORD")
+              storeFile = file("${System.getenv("KEY_STORE_FILE_PATH")}")
+              storePassword = System.getenv("KEY_STORE_PASSWORD")
+            }
+          }
+
           buildTypes {
-            release {
+            getByName("release") {
               isMinifyEnabled = true
               proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
               )
+              signingConfig = signingConfigs.getByName("release")
             }
           }
         }
