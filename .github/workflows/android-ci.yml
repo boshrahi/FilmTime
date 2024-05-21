@@ -44,6 +44,7 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_STORE_FILE_PATH: keystore.jks
+          FILM_TIME_TMDB_API_KEY: ${{ secrets.FILM_TIME_TMDB_API_KEY }}
 
       - name: Run unit tests
         run: ./gradlew test
@@ -55,6 +56,7 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
           KEY_STORE_FILE_PATH: keystore.jks
+          FILM_TIME_TMDB_API_KEY: ${{ secrets.FILM_TIME_TMDB_API_KEY }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
