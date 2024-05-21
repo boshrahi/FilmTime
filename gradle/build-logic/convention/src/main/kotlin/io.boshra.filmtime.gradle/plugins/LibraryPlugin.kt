@@ -28,6 +28,7 @@ class LibraryPlugin : Plugin<Project> {
               getDefaultProguardFile("proguard-android-optimize.txt"),
               "proguard-rules.pro",
             )
+            consumerProguardFiles("consumer-rules.pro")
           }
         }
       }
