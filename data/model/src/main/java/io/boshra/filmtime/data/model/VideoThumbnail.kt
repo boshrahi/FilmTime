@@ -11,3 +11,18 @@ data class VideoId(
   val traktId: Int?,
   val tmdbId: Int?,
 )
+
+enum class VideoType {
+  Movie,
+  Show,
+}
+
+enum class VideoListType {
+  Trending,
+  Popular,
+  TopRated,
+  NowPlaying, // Movie Only
+  Upcoming, // Movie Only
+  OnTheAir, // Show Only
+  AiringToday, // Show Only
+}

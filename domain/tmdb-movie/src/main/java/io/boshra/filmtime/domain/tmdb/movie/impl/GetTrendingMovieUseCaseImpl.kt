@@ -1,9 +1,10 @@
-package io.boshra.filmtime.domain.tmdb.movie
+package io.boshra.filmtime.domain.tmdb.movie.impl
 
 import io.boshra.filmtime.data.model.GeneralError
 import io.boshra.filmtime.data.model.Result
 import io.boshra.filmtime.data.model.VideoThumbnail
 import io.boshra.filmtime.data.tmdb.movies.TmdbMovieRepository
+import io.boshra.filmtime.domain.tmdb.movie.GetTrendingMoviesUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

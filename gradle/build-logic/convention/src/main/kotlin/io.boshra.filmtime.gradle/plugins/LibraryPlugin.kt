@@ -3,6 +3,7 @@ package io.boshra.filmtime.gradle.plugins
 import com.android.build.gradle.LibraryExtension
 import io.boshra.filmtime.gradle.Versions
 import io.boshra.filmtime.gradle.configureKotlinAndroid
+import io.boshra.filmtime.gradle.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -35,6 +36,9 @@ class LibraryPlugin : Plugin<Project> {
 
       dependencies {
         add("testImplementation", kotlin("test"))
+        add("testImplementation", libs.findLibrary("junit").get())
+        add("androidTestImplementation", libs.findLibrary("androidx-test-ext-junit").get())
+        add("androidTestImplementation", libs.findLibrary("espresso-core").get())
       }
     }
   }

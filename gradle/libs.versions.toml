@@ -18,6 +18,10 @@ org-jetbrains-kotlin-jvm = "1.9.0"
 lifecycle-version = "2.7.0"
 hilt-android = "2.49"
 hilt-navigation-compose = "1.2.0"
+core-ktx = "1.13.1"
+appcompat = "1.6.1"
+material = "1.12.0"
+paging = "3.3.0"
 
 [libraries]
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
@@ -51,10 +55,15 @@ lifecycle-runtime-compose = {group = "androidx.lifecycle", name = "lifecycle-run
 dagger-hilt-android-compiler = {group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-android"}
 hilt-android = {group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-android"}
 coil-compose = {group = "io.coil-kt", name = "coil-compose", version = "2.6.0"}
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

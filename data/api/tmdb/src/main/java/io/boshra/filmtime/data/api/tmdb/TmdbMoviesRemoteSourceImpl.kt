@@ -31,8 +31,13 @@ internal class TmdbMoviesRemoteSourceImpl @Inject constructor(
       is NetworkResponse.UnknownError -> Result.Failure(GeneralError.UnknownError(result.error))
     }
 
-  override suspend fun getTrendingMovies(): Result<List<VideoThumbnail>, GeneralError> =
-    when (val result = tmdbMoviesService.getTrendingMovies()) {
+  override suspend fun getTrendingMovies(page: Int): Result<List<VideoThumbnail>, GeneralError> =
+    when (
+      val result = tmdbMoviesService.getTrendingMovies(
+        timeWindow = ListType.WEEK.value,
+        page = page,
+      )
+    ) {
       is NetworkResponse.Success -> {
         val videoDetailResponse = result.body
         if (videoDetailResponse == null) {
@@ -41,6 +46,7 @@ internal class TmdbMoviesRemoteSourceImpl @Inject constructor(
           Result.Success(videoDetailResponse.results?.map { it.toVideoThumbnail() }.orEmpty())
         }
       }
+
       is NetworkResponse.ApiError -> {
         val errorResponse = result.body
         Result.Failure(GeneralError.ApiError(errorResponse.statusMessage, errorResponse.statusCode))
@@ -49,4 +55,9 @@ internal class TmdbMoviesRemoteSourceImpl @Inject constructor(
       is NetworkResponse.NetworkError -> Result.Failure(GeneralError.NetworkError)
       is NetworkResponse.UnknownError -> Result.Failure(GeneralError.UnknownError(result.error))
     }
+
+  private enum class ListType(val value: String) {
+    DAY("day"),
+    WEEK("week"),
+  }
 }
