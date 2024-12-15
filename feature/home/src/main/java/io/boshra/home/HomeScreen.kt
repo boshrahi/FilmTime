@@ -51,13 +51,15 @@ fun HomeScreen(
   // PullRefreshState for managing refresh state
   val pullRefreshState = rememberPullRefreshState(
     refreshing = state.isRefreshing,
-    onRefresh = { viewModel.refreshData() }
+    onRefresh = { viewModel.refreshData() },
   )
 
   Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
     if (state.isLoading) {
       CircularProgressIndicator(
-        modifier = Modifier.wrapContentSize().align(Alignment.Center)
+        modifier = Modifier
+          .wrapContentSize()
+          .align(Alignment.Center),
       )
     } else {
       LazyColumn(
@@ -83,14 +85,14 @@ fun HomeScreen(
   Box(
     modifier = Modifier
       .fillMaxSize()
-      .pullRefresh(pullRefreshState)
+      .pullRefresh(pullRefreshState),
   ) {
     // Your content (e.g., LazyColumn, CircularProgressIndicator, etc.)
 
     PullRefreshIndicator(
       refreshing = state.isRefreshing,
       state = pullRefreshState,
-      modifier = Modifier.align(Alignment.TopCenter) // Correct alignment
+      modifier = Modifier.align(Alignment.TopCenter), // Correct alignment
     )
   }
 }
