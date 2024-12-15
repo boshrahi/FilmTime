@@ -1,4 +1,4 @@
-package io.boshra.home
+package io.boshra.filmtime.core
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Card

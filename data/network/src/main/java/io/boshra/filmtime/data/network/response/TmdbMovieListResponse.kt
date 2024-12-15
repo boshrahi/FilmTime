@@ -9,9 +9,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TmdbVideoListResponse(
+data class TmdbMovieListResponse(
   val page: Long? = null,
-  val results: List<TmdbVideoResultResponse>? = null,
+  val results: List<TmdbMovieResultResponse>? = null,
 
   @SerialName("total_pages")
   val totalPages: Long? = null,
@@ -21,7 +21,7 @@ data class TmdbVideoListResponse(
 )
 
 @Serializable
-data class TmdbVideoResultResponse(
+data class TmdbMovieResultResponse(
   val adult: Boolean? = null,
 
   @SerialName("backdrop_path")

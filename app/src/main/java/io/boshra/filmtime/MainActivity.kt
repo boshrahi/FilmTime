@@ -21,6 +21,8 @@ import io.boshra.filmtime.ui.theme.FilmTimeTheme
 import io.boshra.home.homeScreen
 import io.boshra.player.navigateToPlayer
 import io.boshra.player.playerScreen
+import io.boshra.video.thumbnail.grid.navigateToVideoThumbnailGridScreen
+import io.boshra.video.thumbnail.grid.videoThumbnailGridScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -39,13 +41,19 @@ class MainActivity : ComponentActivity() {
             navController = navController,
             startDestination = "home",
           ) {
-            homeScreen { movieId ->
-              navController.navigateToMovieDetail(movieId)
-            }
+            homeScreen(
+              { movieId ->
+                navController.navigateToMovieDetail(movieId)
+              },
+              { videoType, videoList ->
+                navController.navigateToVideoThumbnailGridScreen(videoType, videoList)
+              },
+            )
             movieDetailScreen { streamUrl ->
               navController.navigateToPlayer(streamUrl)
             }
             playerScreen()
+            videoThumbnailGridScreen({}, {}, {})
           }
         }
       }

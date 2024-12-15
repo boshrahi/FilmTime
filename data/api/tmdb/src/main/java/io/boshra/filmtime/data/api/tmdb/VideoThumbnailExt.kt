@@ -4,8 +4,8 @@ import io.boshra.filmtime.data.model.VideoDetail
 import io.boshra.filmtime.data.model.VideoId
 import io.boshra.filmtime.data.model.VideoThumbnail
 import io.boshra.filmtime.data.network.response.TmdbMovieDetailsResponse
+import io.boshra.filmtime.data.network.response.TmdbMovieResultResponse
 import io.boshra.filmtime.data.network.response.TmdbShowResultResponse
-import io.boshra.filmtime.data.network.response.TmdbVideoResultResponse
 
 private const val TMDB_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original/"
 fun TmdbMovieDetailsResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
@@ -35,7 +35,7 @@ fun TmdbMovieDetailsResponse.toVideoDetail(): VideoDetail = VideoDetail(
   coverUrl = if (!backdropPath.isNullOrBlank()) TMDB_BASE_IMAGE_URL.plus(backdropPath) else "",
 )
 
-fun TmdbVideoResultResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
+fun TmdbMovieResultResponse.toVideoThumbnail(): VideoThumbnail = VideoThumbnail(
   ids = VideoId(traktId = null, tmdbId = this.id),
   title = this.title ?: "",
   posterUrl = if (!posterPath.isNullOrBlank()) TMDB_BASE_IMAGE_URL.plus(posterPath) else "",
