@@ -6,6 +6,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.boshra.filmtime.data.model.Result
 import io.boshra.filmtime.domain.tmdb.movie.GetTrendingMoviesUseCase
 import io.boshra.tmdb.shows.GetTrendingShowsUseCase
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
@@ -22,8 +25,25 @@ class HomeViewModel @Inject constructor(
   private val getTrendingShowsUseCase: GetTrendingShowsUseCase,
 ) : ViewModel() {
 
-  private val _state = MutableStateFlow(HomeUiState(isLoading = false))
+  private val _state = MutableStateFlow(HomeUiState(isLoading = false, isRefreshing = false))
   val state = _state.asStateFlow()
+
+  fun refreshData() {
+    viewModelScope.launch {
+      // Set refreshing state to true
+      _state.update { it.copy(isRefreshing = true, videoSections = emptyList()) }
+
+      // Parallel refresh of trending movies and shows
+      val movieDeferred = async { getTrendingMovies() }
+      val showDeferred = async { getTrendingShows() }
+
+      // Wait for both to complete
+      awaitAll(movieDeferred, showDeferred)
+
+      // Set refreshing state to false
+      _state.update { it.copy(isRefreshing = false) }
+    }
+  }
 
   init {
     getTrendingMovies()
@@ -34,7 +54,10 @@ class HomeViewModel @Inject constructor(
     viewModelScope.launch {
       getTrendingShowsUseCase()
         .onStart { _state.update { state -> state.copy(isLoading = true) } }
-        .onCompletion { _state.update { state -> state.copy(isLoading = false) } }
+        .onCompletion {
+          delay(1000L)
+          _state.update { state -> state.copy(isLoading = false) }
+        }
         .onEach { result ->
           when (result) {
             is Result.Success -> {
@@ -58,7 +81,10 @@ class HomeViewModel @Inject constructor(
     viewModelScope.launch {
       getTrendingMoviesUseCase()
         .onStart { _state.update { state -> state.copy(isLoading = true) } }
-        .onCompletion { _state.update { state -> state.copy(isLoading = false) } }
+        .onCompletion {
+          delay(1000L)
+          _state.update { state -> state.copy(isLoading = false) }
+        }
         .onEach { result ->
           when (result) {
             is Result.Success -> {
