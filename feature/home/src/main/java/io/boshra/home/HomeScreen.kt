@@ -30,17 +30,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.boshra.filmtime.core.VideoThumbnailCard
+import io.boshra.filmtime.data.model.VideoListType
 import io.boshra.filmtime.data.model.VideoThumbnail
+import io.boshra.filmtime.data.model.VideoType
 
 @Composable
 fun HomeScreen(
   viewModel: HomeViewModel,
   onVideoThumbnailClick: (tmdbMovieId: Int) -> Unit,
+  onAllVideosClicked: (videoType: VideoType, videoList: VideoListType) -> Unit,
 ) {
   val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -66,6 +70,9 @@ fun HomeScreen(
             items = videoSection.items,
             onVideoThumbnailClick = {
               onVideoThumbnailClick(it)
+            },
+            onAllVideosClicked = { videoType, videoList ->
+              onAllVideosClicked(videoType, videoList)
             },
           )
         }
@@ -94,11 +101,14 @@ fun VideoSectionRow(
   title: String,
   items: List<VideoThumbnail>,
   onVideoThumbnailClick: (tmdbMovieId: Int) -> Unit,
+  onAllVideosClicked: (videoType: VideoType, videoList: VideoListType) -> Unit,
 ) {
   Column {
     Row(
       modifier = Modifier
-        .clickable { }
+        .clickable {
+          onAllVideosClicked(VideoType.Movie, VideoListType.Trending)
+        }
         .padding(16.dp),
     ) {
       Text(
