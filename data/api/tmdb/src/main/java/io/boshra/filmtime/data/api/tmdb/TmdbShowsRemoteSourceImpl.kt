@@ -11,8 +11,12 @@ class TmdbShowsRemoteSourceImpl @Inject constructor(
   private val tmdbShowsService: TmdbShowsService,
 ) : TmdbShowsRemoteSource {
 
-  override suspend fun getTrendingShows(): Result<List<VideoThumbnail>, GeneralError> =
-    when (val result = tmdbShowsService.getTrendingShows()) {
+  override suspend fun getTrendingShows(page: Int): Result<List<VideoThumbnail>, GeneralError> =
+    when (
+      val result = tmdbShowsService.getTrendingShows(
+        page = page,
+      )
+    ) {
       is NetworkResponse.Success -> {
         val videoDetailResponse = result.body
         if (videoDetailResponse == null) {
@@ -21,6 +25,7 @@ class TmdbShowsRemoteSourceImpl @Inject constructor(
           Result.Success(videoDetailResponse.results?.map { it.toVideoThumbnail() }.orEmpty())
         }
       }
+
       is NetworkResponse.ApiError -> {
         val errorResponse = result.body
         Result.Failure(GeneralError.ApiError(errorResponse.statusMessage, errorResponse.statusCode))
