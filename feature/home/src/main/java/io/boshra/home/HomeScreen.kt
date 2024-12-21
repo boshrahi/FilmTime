@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterialApi::class)
-
 package io.boshra.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -40,6 +38,7 @@ import io.boshra.filmtime.data.model.VideoListType
 import io.boshra.filmtime.data.model.VideoThumbnail
 import io.boshra.filmtime.data.model.VideoType
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
   viewModel: HomeViewModel,
@@ -68,6 +67,7 @@ fun HomeScreen(
       ) {
         items(state.videoSections) { videoSection ->
           VideoSectionRow(
+            videoType = videoSection.type,
             title = videoSection.title,
             items = videoSection.items,
             onVideoThumbnailClick = {
@@ -100,6 +100,7 @@ fun HomeScreen(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun VideoSectionRow(
+  videoType: VideoType,
   title: String,
   items: List<VideoThumbnail>,
   onVideoThumbnailClick: (tmdbMovieId: Int) -> Unit,
@@ -109,7 +110,7 @@ fun VideoSectionRow(
     Row(
       modifier = Modifier
         .clickable {
-          onAllVideosClicked(VideoType.Movie, VideoListType.Trending)
+          onAllVideosClicked(videoType, VideoListType.Trending)
         }
         .padding(16.dp),
     ) {

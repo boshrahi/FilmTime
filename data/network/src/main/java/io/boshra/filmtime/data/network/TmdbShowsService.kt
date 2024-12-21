@@ -10,6 +10,7 @@ interface TmdbShowsService {
 
   @GET("/3/trending/tv/day")
   suspend fun getTrendingShows(
+    @Query("page") page: Int,
     @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
   ): NetworkResponse<TmdbShowsListResponse, TmdbErrorResponse>
 }

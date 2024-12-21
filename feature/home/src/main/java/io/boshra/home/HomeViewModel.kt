@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.boshra.filmtime.data.model.Result
+import io.boshra.filmtime.data.model.VideoType
 import io.boshra.filmtime.domain.tmdb.movie.GetTrendingMoviesUseCase
 import io.boshra.tmdb.shows.GetTrendingShowsUseCase
 import kotlinx.coroutines.async
@@ -64,10 +65,17 @@ class HomeViewModel @Inject constructor(
               _state.update { state ->
                 state.copy(
                   videoSections = state.videoSections +
-                    listOf(VideoSections(title = "Trending Shows", result.data)),
+                    listOf(
+                      VideoSections(
+                        title = "Trending Shows",
+                        type = VideoType.Show,
+                        items = result.data,
+                      ),
+                    ),
                 )
               }
             }
+
             is Result.Failure -> {
               // TODO handling
             }
@@ -91,10 +99,17 @@ class HomeViewModel @Inject constructor(
               _state.update { state ->
                 state.copy(
                   videoSections = state.videoSections +
-                    listOf(VideoSections(title = "Trending Movies", result.data)),
+                    listOf(
+                      VideoSections(
+                        title = "Trending Movies",
+                        type = VideoType.Movie,
+                        items = result.data,
+                      ),
+                    ),
                 )
               }
             }
+
             is Result.Failure -> {
               // TODO handling
             }

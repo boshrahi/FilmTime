@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.boshra.filmtime.data.model.VideoThumbnail
 import io.boshra.filmtime.data.model.VideoType
 import io.boshra.filmtime.domain.tmdb.movie.ObserverMoviesStreamUseCase
+import io.boshra.tmdb.shows.ObserverShowsStreamUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,20 +20,22 @@ import javax.inject.Inject
 @HiltViewModel
 class VideoThumbnailGridViewModel @Inject constructor(
   savedStateHandle: SavedStateHandle,
-  private val getMoviesStreamUseCase: ObserverMoviesStreamUseCase,
+  getMoviesStreamUseCase: ObserverMoviesStreamUseCase,
+  getShowsStreamUseCase: ObserverShowsStreamUseCase,
 ) : ViewModel() {
 
   private val args = VideoThumbnailGridArgs(savedStateHandle)
   private val videoType = args.videoType
   private val listType = args.listType
 
-  private val _state: MutableStateFlow<VideoThumbnailGridUiStatus> = MutableStateFlow(VideoThumbnailGridUiStatus())
+  private val _state: MutableStateFlow<VideoThumbnailGridUiStatus> =
+    MutableStateFlow(VideoThumbnailGridUiStatus())
   val state = _state.asStateFlow()
 
   val pagedList: Flow<PagingData<VideoThumbnail>> =
     when (videoType) {
       VideoType.Movie -> getMoviesStreamUseCase(listType)
-      VideoType.Show -> getMoviesStreamUseCase(listType)
+      VideoType.Show -> getShowsStreamUseCase(listType)
     }.map { pagingData ->
       val items = mutableListOf<VideoThumbnail>()
       pagingData.filter { videoThumbnail ->

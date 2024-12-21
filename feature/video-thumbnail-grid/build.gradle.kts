@@ -10,6 +10,7 @@ android {
 dependencies {
 
   implementation(project(":domain:tmdb-movie"))
+  implementation(project(":domain:tmdb-shows"))
   implementation(libs.androidx.media3.exoplayer)
   implementation(libs.androidx.media3.hls)
   implementation(libs.androidx.media3.ui)

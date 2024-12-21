@@ -7,7 +7,7 @@ sealed class GeneralError {
 }
 
 class GeneralErrorThrowable(
-  val generalError: GeneralError,
+  private val generalError: GeneralError,
 ) : Throwable() {
 
   override val message: String
