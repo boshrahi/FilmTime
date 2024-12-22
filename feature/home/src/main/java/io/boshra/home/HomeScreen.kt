@@ -50,7 +50,7 @@ fun HomeScreen(
   // PullRefreshState for managing refresh state
   val pullRefreshState = rememberPullRefreshState(
     refreshing = state.isRefreshing,
-    onRefresh = { viewModel.refreshData() },
+    onRefresh = { viewModel.onAction(HomeScreenAction.RefreshScreen) },
   )
 
   Box(modifier = Modifier.pullRefresh(pullRefreshState)) {
