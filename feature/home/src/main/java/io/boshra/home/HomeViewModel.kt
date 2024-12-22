@@ -9,7 +9,6 @@ import io.boshra.filmtime.domain.tmdb.movie.GetTrendingMoviesUseCase
 import io.boshra.tmdb.shows.GetTrendingShowsUseCase
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
@@ -29,17 +28,25 @@ class HomeViewModel @Inject constructor(
   private val _state = MutableStateFlow(HomeUiState(isLoading = false, isRefreshing = false))
   val state = _state.asStateFlow()
 
-  fun refreshData() {
+  // for MVI arch
+  fun onAction(action: HomeScreenAction) {
+    when (action) {
+      HomeScreenAction.RefreshScreen -> {
+        refreshData()
+      }
+    }
+  }
+
+  private fun refreshData() {
     viewModelScope.launch {
       // Set refreshing state to true
       _state.update { it.copy(isRefreshing = true, videoSections = emptyList()) }
 
       // Parallel refresh of trending movies and shows
       val movieDeferred = async { getTrendingMovies() }
+      awaitAll(movieDeferred)
       val showDeferred = async { getTrendingShows() }
-
-      // Wait for both to complete
-      awaitAll(movieDeferred, showDeferred)
+      awaitAll(showDeferred)
 
       // Set refreshing state to false
       _state.update { it.copy(isRefreshing = false) }
@@ -53,25 +60,21 @@ class HomeViewModel @Inject constructor(
 
   private fun getTrendingShows() {
     viewModelScope.launch {
-      getTrendingShowsUseCase()
-        .onStart { _state.update { state -> state.copy(isLoading = true) } }
+      getTrendingShowsUseCase().onStart { _state.update { state -> state.copy(isLoading = true) } }
         .onCompletion {
-          delay(1000L)
           _state.update { state -> state.copy(isLoading = false) }
-        }
-        .onEach { result ->
+        }.onEach { result ->
           when (result) {
             is Result.Success -> {
               _state.update { state ->
                 state.copy(
-                  videoSections = state.videoSections +
-                    listOf(
-                      VideoSections(
-                        title = "Trending Shows",
-                        type = VideoType.Show,
-                        items = result.data,
-                      ),
+                  videoSections = state.videoSections + listOf(
+                    VideoSections(
+                      title = "Trending Shows",
+                      type = VideoType.Show,
+                      items = result.data,
                     ),
+                  ),
                 )
               }
             }
@@ -80,32 +83,27 @@ class HomeViewModel @Inject constructor(
               // TODO handling
             }
           }
-        }
-        .collect()
+        }.collect()
     }
   }
 
   private fun getTrendingMovies() {
     viewModelScope.launch {
-      getTrendingMoviesUseCase()
-        .onStart { _state.update { state -> state.copy(isLoading = true) } }
+      getTrendingMoviesUseCase().onStart { _state.update { state -> state.copy(isLoading = true) } }
         .onCompletion {
-          delay(1000L)
           _state.update { state -> state.copy(isLoading = false) }
-        }
-        .onEach { result ->
+        }.onEach { result ->
           when (result) {
             is Result.Success -> {
               _state.update { state ->
                 state.copy(
-                  videoSections = state.videoSections +
-                    listOf(
-                      VideoSections(
-                        title = "Trending Movies",
-                        type = VideoType.Movie,
-                        items = result.data,
-                      ),
+                  videoSections = state.videoSections + listOf(
+                    VideoSections(
+                      title = "Trending Movies",
+                      type = VideoType.Movie,
+                      items = result.data,
                     ),
+                  ),
                 )
               }
             }
@@ -114,8 +112,7 @@ class HomeViewModel @Inject constructor(
               // TODO handling
             }
           }
-        }
-        .collect()
+        }.collect()
     }
   }
 }
